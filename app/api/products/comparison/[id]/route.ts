@@ -9,6 +9,15 @@ export async function GET(
   try {
     const { id } = await params;
 
+    // Check if this is a manual product ID
+    if (id.startsWith('manual_')) {
+      // Signal to client to load from localStorage
+      return NextResponse.json({
+        isManual: true,
+        message: 'Manual product - load from client storage'
+      });
+    }
+
     const allProducts = mockData.products as ProductComparison[];
     const product = allProducts.find((p) => p.id === id);
 
@@ -53,7 +62,8 @@ export async function GET(
           retailer,
           confidence,
           matchType: isExact ? ('exact' as const) : ('similar' as const),
-          product: {
+          products: [{
+            id: `${retailer}_${product.sku}`,
             name: product.name,
             sku: product.sku,
             imageUrl: product.imageUrl,
@@ -62,8 +72,7 @@ export async function GET(
             description: product.description,
             brand: product.brand,
             category: product.category,
-            inStock: product.prices[retailer].inStock,
-          },
+          }],
         };
       });
 

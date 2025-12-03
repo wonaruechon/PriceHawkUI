@@ -1,0 +1,23 @@
+{
+  "workflow": "chore_implement",
+  "adw_id": "f5df3e67",
+  "prompt": "Refactor Product Comparison Detail page (app/(main)/products/[id]/page.tsx) with the\n  following UI changes:\n\n  1. DELETE STOCK FIELD:\n  - Remove stock/inStock field from ProductDetailCard.tsx (components/products/ProductDetailCard.tsx lines 76-80)\n  - Remove stock field from MatchedProductCard.tsx (components/products/MatchedProductCard.tsx lines 89-94)\n\n  2. RETAILER HEADER COLORS - Add distinct header colors for each retailer in MatchedProductCard.tsx:\n  - Thai Watsadu: bg-red-600 (already in ProductDetailCard)\n  - HomePro: bg-red-500 or bg-red-600\n  - Global House: bg-blue-800 or bg-indigo-700\n  - DoHome: bg-orange-500\n  - Boonthavorn: bg-green-600\n  Create a RetailerColors constant mapping Retailer enum to Tailwind bg colors, and apply to the card header div (currently\n  bg-gray-50)\n\n  3. ADD VALIDATION ACTION BUTTONS (Incorrect/Correct) at bottom of each matched product item:\n  - Add two buttons at the bottom-right of each matched product: 'Incorrect' (X icon, gray/red style) and 'Correct'\n  (checkmark icon, green style)\n  - Incorrect button: onClick marks product as validation_status='incorrect', shows incorrect status badge (red X), stores in\n   localStorage/API\n  - Correct button: onClick marks product as validation_status='correct', shows correct status badge (green checkmark),\n  stores in localStorage/API\n  - On page refresh: filter out products with validation_status='incorrect', keep products with 'correct' or undefined status\n\n  4. SUPPORT MULTIPLE MATCHED PRODUCTS PER RETAILER:\n  - Update ProductComparisonDetailResponse type to allow array of products per retailer match\n  - Update matchedProducts structure to support multiple items within same retailer card (see Boonthavorn example with 2 \n  products at \u0e3f90 and \u0e3f75)\n  - Each product within a retailer should have its own Incorrect/Correct buttons\n\n  5. MANUAL COMPARISON FALLBACK:\n  - If ALL matched products for a source product are marked 'incorrect', show ManualComparisonForm component \n  (components/comparison/ManualComparisonForm.tsx)\n  - After successful manual comparison submission, display the manually entered data in the matched products section\n  - Store manual comparison results alongside validation status\n\n  6. ADD VALIDATION STATUS TYPES to lib/types/price-comparison.ts:\n  - Add ValidationStatus type: 'pending' | 'correct' | 'incorrect'\n  - Add validationStatus field to matched product interface\n  - Add isManualEntry boolean field\n\n  7. CREATE API ENDPOINT or localStorage utility for persisting validation status:\n  - POST /api/products/comparison/[id]/validate - to save validation status\n  - Or create lib/utils/validation-storage.ts for localStorage-based persistence\n\n  Files to modify:\n  - components/products/ProductDetailCard.tsx (remove stock)\n  - components/products/MatchedProductCard.tsx (remove stock, add colors, add action buttons)\n  - app/(main)/products/[id]/page.tsx (handle validation state, filter incorrect, show manual form)\n  - lib/types/price-comparison.ts (add validation types)",
+  "model": "opus",
+  "working_dir": "/Users/naruechon/Documents/Project/PriceHack",
+  "plan_path": "specs/chore-f5df3e67-refactor-product-comparison-detail.md",
+  "phases": {
+    "planning": {
+      "success": true,
+      "session_id": "220bdf96-3fdb-422a-91f8-b85e082c9f9f",
+      "agent": "planner",
+      "output_dir": "./agents/f5df3e67/planner/"
+    },
+    "implementation": {
+      "success": true,
+      "session_id": "008d4063-c1a5-4c9c-97a7-397b0f7c6bba",
+      "agent": "builder",
+      "output_dir": "./agents/f5df3e67/builder/"
+    }
+  },
+  "overall_success": true
+}

@@ -1,0 +1,48 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 73982,
+  "duration_api_ms": 79198,
+  "num_turns": 11,
+  "result": "Plan file created at: `specs/chore-f5df3e67-refactor-product-comparison-detail.md`",
+  "session_id": "220bdf96-3fdb-422a-91f8-b85e082c9f9f",
+  "total_cost_usd": 0.34664125,
+  "usage": {
+    "input_tokens": 7,
+    "cache_creation_input_tokens": 27753,
+    "cache_read_input_tokens": 140758,
+    "output_tokens": 3724,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 27753
+    }
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 1101,
+      "outputTokens": 90,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.001551,
+      "contextWindow": 200000
+    },
+    "claude-opus-4-5-20251101": {
+      "inputTokens": 1236,
+      "outputTokens": 3803,
+      "cacheReadInputTokens": 140758,
+      "cacheCreationInputTokens": 27753,
+      "webSearchRequests": 0,
+      "costUSD": 0.34509025000000004,
+      "contextWindow": 200000
+    }
+  },
+  "permission_denials": [],
+  "uuid": "b714b502-cb5b-415c-8627-32f2debd14f9"
+}

@@ -1,0 +1,23 @@
+{
+  "workflow": "chore_implement",
+  "adw_id": "c193c1dd",
+  "prompt": "Implement a 'Manual Comparison' button that appears when all matched products for a \n  product row are marked as 'incorrect'. \n\n  CONTEXT:\n  - PriceComparisonTable.tsx displays product rows with prices from multiple retailers (THAI_WATSADU, HOMEPRO, GLOBAL_HOUSE, \n  DOHOME, BOONTHAVORN)\n  - Validation statuses are stored in localStorage via lib/utils/validation-storage.ts with pattern \n  'pricehawk_validation_{productId}'\n  - Matched product IDs follow format: '${retailer.toLowerCase()}_${product.sku}'\n  - ValidationStatus type is 'pending' | 'correct' | 'incorrect'\n\n  REQUIREMENTS:\n  1. In PriceComparisonRow.tsx (or PriceComparisonTable.tsx), check if ALL matched products for a product are marked as \n  'incorrect' using the validationStatuses prop\n  2. When all retailer matches are 'incorrect', display a 'Manual Comparison' button in the row (could replace the price \n  cells area or appear as an action button)\n  3. The button should navigate to /comparison page with the product's SKU pre-filled as a query parameter (e.g., \n  /comparison?sku={product.sku}&productId={product.id})\n  4. Use Next.js Link or router.push for navigation\n  5. Style the button consistently with existing UI (Tailwind CSS, similar to other action buttons in the codebase)\n\n  FILES TO MODIFY:\n  - components/products/PriceComparisonRow.tsx - Add logic to detect all-incorrect state and render Manual Comparison button\n  - Possibly components/products/PriceComparisonTable.tsx if row-level changes need table-level support\n  - Optionally app/(main)/comparison/page.tsx - Handle incoming query params to pre-fill the form\n\n  HELPER FUNCTION SUGGESTION:\n  Create a function like 'areAllMatchesIncorrect(productId: string, retailers: Retailer[], validationStatuses): boolean' that\n   checks if every retailer's matched product is marked incorrect",
+  "model": "sonnet",
+  "working_dir": "/Users/naruechon/Documents/Project/PriceHack",
+  "plan_path": "specs/chore-c193c1dd-manual-comparison-button.md",
+  "phases": {
+    "planning": {
+      "success": true,
+      "session_id": "3dc097cb-cee5-4fb6-a3b9-bb56f9c973c3",
+      "agent": "planner",
+      "output_dir": "./agents/c193c1dd/planner/"
+    },
+    "implementation": {
+      "success": true,
+      "session_id": "649fe0b2-dd61-4924-aa8a-e10146c2ed13",
+      "agent": "builder",
+      "output_dir": "./agents/c193c1dd/builder/"
+    }
+  },
+  "overall_success": true
+}

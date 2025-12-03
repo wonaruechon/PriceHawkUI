@@ -9,8 +9,11 @@ import {
   ProductComparison,
   ProductComparisonListResponse,
   ProductFilterState,
+  ValidationStatus,
 } from '@/lib/types/price-comparison';
 import { exportToCSV } from '@/lib/utils/export-utils';
+import { getAllValidationStatusesForAllProducts } from '@/lib/utils/validation-storage';
+import { getAllManualComparisonProducts } from '@/lib/utils/manual-comparison-storage';
 
 export default function ProductsPage() {
   const router = useRouter();
@@ -26,6 +29,13 @@ export default function ProductsPage() {
   });
   const [page, setPage] = useState(1);
   const pageSize = 10;
+  const [validationStatuses, setValidationStatuses] = useState<Record<string, Record<string, ValidationStatus>>>({});
+
+  // Load validation statuses from localStorage on mount
+  useEffect(() => {
+    const statuses = getAllValidationStatusesForAllProducts();
+    setValidationStatuses(statuses);
+  }, []);
 
   // Fetch products data
   useEffect(() => {
@@ -47,7 +57,133 @@ export default function ProductsPage() {
         if (!response.ok) throw new Error('Failed to fetch products');
 
         const result: ProductComparisonListResponse = await response.json();
-        setData(result);
+
+        // Get manual products from localStorage
+        const manualProducts = getAllManualComparisonProducts();
+
+        // Merge manual products with API products
+        // Manual products appear first (most recent)
+        const mergedProducts = [...manualProducts, ...result.products];
+
+        // Apply filters to merged dataset
+        let filteredProducts = mergedProducts;
+
+        // Apply search filter
+        if (filters.search) {
+          const searchLower = filters.search.toLowerCase();
+          filteredProducts = filteredProducts.filter(
+            (p) =>
+              p.name.toLowerCase().includes(searchLower) ||
+              p.sku.toLowerCase().includes(searchLower) ||
+              p.brand.toLowerCase().includes(searchLower) ||
+              p.category.toLowerCase().includes(searchLower)
+          );
+        }
+
+        // Apply category filter
+        if (filters.category) {
+          filteredProducts = filteredProducts.filter(
+            (p) => p.category === filters.category || p.categoryTh === filters.category
+          );
+        }
+
+        // Apply brand filter
+        if (filters.brand) {
+          filteredProducts = filteredProducts.filter((p) => p.brand === filters.brand);
+        }
+
+        // Apply status filter
+        if (filters.status) {
+          filteredProducts = filteredProducts.filter((p) => p.status === filters.status);
+        }
+
+        // Apply sorting
+        filteredProducts.sort((a, b) => {
+          let aValue: any;
+          let bValue: any;
+
+          switch (filters.sortBy) {
+            case 'name':
+              aValue = a.name.toLowerCase();
+              bValue = b.name.toLowerCase();
+              break;
+            case 'sku':
+              aValue = a.sku;
+              bValue = b.sku;
+              break;
+            case 'category':
+              aValue = a.category.toLowerCase();
+              bValue = b.category.toLowerCase();
+              break;
+            case 'brand':
+              aValue = a.brand.toLowerCase();
+              bValue = b.brand.toLowerCase();
+              break;
+            case 'price':
+              aValue = a.prices.thai_watsadu.price || 0;
+              bValue = b.prices.thai_watsadu.price || 0;
+              break;
+            case 'status':
+              aValue = a.status;
+              bValue = b.status;
+              break;
+            default:
+              aValue = a.name.toLowerCase();
+              bValue = b.name.toLowerCase();
+          }
+
+          if (aValue < bValue) return filters.sortOrder === 'asc' ? -1 : 1;
+          if (aValue > bValue) return filters.sortOrder === 'asc' ? 1 : -1;
+          return 0;
+        });
+
+        // Calculate new pagination
+        const total = filteredProducts.length;
+        const totalPages = Math.ceil(total / pageSize);
+        const startIndex = (page - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+
+        // Update filters to include manual products
+        const allMergedProducts = [...manualProducts, ...result.products];
+        const categories = Array.from(
+          new Set(allMergedProducts.map((p) => p.categoryTh || p.category))
+        ).map((cat) => ({
+          value: cat,
+          label: cat,
+          count: allMergedProducts.filter((p) => (p.categoryTh || p.category) === cat).length,
+        }));
+
+        const brands = Array.from(new Set(allMergedProducts.map((p) => p.brand))).map((brand) => ({
+          value: brand,
+          label: brand,
+          count: allMergedProducts.filter((p) => p.brand === brand).length,
+        }));
+
+        // Update result with merged data
+        const updatedResult: ProductComparisonListResponse = {
+          ...result,
+          products: paginatedProducts,
+          pagination: {
+            page,
+            pageSize,
+            total,
+            totalPages,
+          },
+          filters: {
+            categories,
+            brands,
+          },
+          summary: {
+            totalProducts: allMergedProducts.length,
+            cheapestCount: allMergedProducts.filter((p) => p.status === 'cheapest').length,
+            higherCount: allMergedProducts.filter((p) => p.status === 'higher').length,
+            sameCount: allMergedProducts.filter((p) => p.status === 'same').length,
+            unavailableCount: allMergedProducts.filter((p) => p.status === 'unavailable').length,
+          },
+        };
+
+        setData(updatedResult);
       } catch (error) {
         console.error('Error fetching products:', error);
       } finally {
@@ -117,6 +253,7 @@ export default function ProductsPage() {
             onRowClick={handleRowClick}
             sortBy={filters.sortBy}
             sortOrder={filters.sortOrder}
+            validationStatuses={validationStatuses}
           />
 
           {/* Pagination Info */}

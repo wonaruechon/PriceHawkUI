@@ -1,12 +1,101 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { ProductDetailCard } from '@/components/products/ProductDetailCard';
 import { MatchedProductCard } from '@/components/products/MatchedProductCard';
-import { ProductComparisonDetailResponse } from '@/lib/types/price-comparison';
+import { ManualComparisonButton } from '@/components/products/ManualComparisonButton';
+import {
+  ProductComparisonDetailResponse,
+  RetailerMatch,
+  ValidationStatus,
+  LegacyMatchedProduct,
+  Retailer,
+} from '@/lib/types/price-comparison';
+import {
+  getAllValidationStatuses,
+  setValidationStatus,
+  getManualComparison,
+  clearValidationStatuses,
+  ManualComparisonData,
+} from '@/lib/utils/validation-storage';
+import {
+  getManualComparisonProductById,
+  isManualProductId,
+} from '@/lib/utils/manual-comparison-storage';
+import { RotateCcw } from 'lucide-react';
+
+// Transform legacy API response to new multi-product format
+function transformMatchedProducts(
+  matchedProducts: LegacyMatchedProduct[] | RetailerMatch[],
+  validationStatuses: Record<string, ValidationStatus>
+): RetailerMatch[] {
+  return matchedProducts.map((match) => {
+    // Check if it's already in new format (has 'products' array)
+    if ('products' in match && Array.isArray(match.products)) {
+      return {
+        ...match,
+        products: match.products.map((product) => ({
+          ...product,
+          validationStatus: validationStatuses[product.id] || product.validationStatus,
+        })),
+      };
+    }
+
+    // Transform legacy format (has 'product' object) to new format
+    const legacyMatch = match as LegacyMatchedProduct;
+    const productId = `${legacyMatch.retailer}_${legacyMatch.product.sku}`;
+    return {
+      retailer: legacyMatch.retailer,
+      confidence: legacyMatch.confidence,
+      matchType: legacyMatch.matchType,
+      products: [
+        {
+          id: productId,
+          name: legacyMatch.product.name,
+          sku: legacyMatch.product.sku,
+          imageUrl: legacyMatch.product.imageUrl,
+          price: legacyMatch.product.price,
+          url: legacyMatch.product.url,
+          description: legacyMatch.product.description,
+          brand: legacyMatch.product.brand,
+          category: legacyMatch.product.category,
+          validationStatus: validationStatuses[productId],
+        },
+      ],
+    };
+  });
+}
+
+// Filter out products marked as incorrect
+function filterIncorrectProducts(matchedProducts: RetailerMatch[]): RetailerMatch[] {
+  return matchedProducts
+    .map((match) => ({
+      ...match,
+      products: match.products.filter(
+        (product) => product.validationStatus !== 'incorrect'
+      ),
+    }))
+    .filter((match) => match.products.length > 0);
+}
+
+// Check if all products are marked as incorrect
+function areAllProductsIncorrect(
+  matchedProducts: RetailerMatch[],
+  validationStatuses: Record<string, ValidationStatus>
+): boolean {
+  const allProductIds = matchedProducts.flatMap((match) =>
+    match.products.map((product) => product.id)
+  );
+
+  if (allProductIds.length === 0) return true;
+
+  return allProductIds.every(
+    (id) => validationStatuses[id] === 'incorrect'
+  );
+}
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -16,12 +105,88 @@ export default function ProductDetailPage() {
   const [data, setData] = useState<ProductComparisonDetailResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [validationStatuses, setValidationStatuses] = useState<Record<string, ValidationStatus>>({});
+  const [showManualForm, setShowManualForm] = useState(false);
+  const [manualComparisonData, setManualComparisonData] = useState<ManualComparisonData | null>(null);
 
+  // Load validation statuses and manual comparison from localStorage on mount
+  useEffect(() => {
+    if (productId) {
+      const statuses = getAllValidationStatuses(productId);
+      setValidationStatuses(statuses);
+      const manualData = getManualComparison(productId);
+      setManualComparisonData(manualData);
+    }
+  }, [productId]);
+
+  // Fetch product detail
   useEffect(() => {
     const fetchProductDetail = async () => {
       setIsLoading(true);
       setError(null);
       try {
+        // Check if this is a manual product
+        if (isManualProductId(productId)) {
+          const manualProduct = getManualComparisonProductById(productId);
+
+          if (!manualProduct) {
+            throw new Error('Manual product not found');
+          }
+
+          // Generate price history (mock data for manual products)
+          const priceHistory = Array.from({ length: 7 }, (_, i) => {
+            const date = new Date();
+            date.setDate(date.getDate() - (6 - i));
+
+            return {
+              date: date.toISOString(),
+              prices: {
+                [Retailer.THAI_WATSADU]: manualProduct.prices[Retailer.THAI_WATSADU].price,
+                [Retailer.HOMEPRO]: manualProduct.prices[Retailer.HOMEPRO].price,
+                [Retailer.GLOBAL_HOUSE]: manualProduct.prices[Retailer.GLOBAL_HOUSE].price,
+                [Retailer.DOHOME]: manualProduct.prices[Retailer.DOHOME].price,
+                [Retailer.BOONTHAVORN]: manualProduct.prices[Retailer.BOONTHAVORN].price,
+              },
+            };
+          });
+
+          // Generate matched products from manual product prices
+          const matchedProducts = Object.values(Retailer)
+            .filter((retailer) => retailer !== Retailer.THAI_WATSADU)
+            .filter((retailer) => manualProduct.prices[retailer].price !== null)
+            .map((retailer): RetailerMatch => {
+              const retailerPrice = manualProduct.prices[retailer];
+              return {
+                retailer,
+                confidence: 100, // Manual entries are 100% confident
+                matchType: 'exact',
+                products: [{
+                  id: `${retailer}_${manualProduct.sku}`,
+                  name: manualProduct.name,
+                  sku: manualProduct.sku,
+                  imageUrl: manualProduct.imageUrl,
+                  price: retailerPrice.price || 0,
+                  url: retailerPrice.productUrl || '',
+                  description: manualProduct.description,
+                  brand: manualProduct.brand,
+                  category: manualProduct.category,
+                  isManualEntry: true,
+                }],
+              };
+            });
+
+          const result: ProductComparisonDetailResponse = {
+            product: manualProduct,
+            priceHistory,
+            matchedProducts,
+          };
+
+          setData(result);
+          setIsLoading(false);
+          return;
+        }
+
+        // Regular API fetch for non-manual products
         const response = await fetch(`/api/products/comparison/${productId}`);
         if (!response.ok) {
           if (response.status === 404) {
@@ -42,6 +207,58 @@ export default function ProductDetailPage() {
       fetchProductDetail();
     }
   }, [productId]);
+
+  // Handle marking product as correct
+  const handleMarkCorrect = useCallback((matchedProductId: string) => {
+    setValidationStatus(productId, matchedProductId, 'correct');
+    setValidationStatuses((prev) => ({
+      ...prev,
+      [matchedProductId]: 'correct',
+    }));
+  }, [productId]);
+
+  // Handle marking product as incorrect
+  const handleMarkIncorrect = useCallback((matchedProductId: string) => {
+    setValidationStatus(productId, matchedProductId, 'incorrect');
+    setValidationStatuses((prev) => ({
+      ...prev,
+      [matchedProductId]: 'incorrect',
+    }));
+  }, [productId]);
+
+  // Handle reset validations
+  const handleResetValidations = useCallback(() => {
+    clearValidationStatuses(productId);
+    setValidationStatuses({});
+    setShowManualForm(false);
+  }, [productId]);
+
+  // Transform and filter matched products
+  const transformedMatchedProducts = data
+    ? transformMatchedProducts(
+        data.matchedProducts as (LegacyMatchedProduct[] | RetailerMatch[]),
+        validationStatuses
+      )
+    : [];
+
+  const filteredMatchedProducts = filterIncorrectProducts(transformedMatchedProducts);
+
+  // Check if we should show manual form
+  const shouldShowManualForm =
+    showManualForm ||
+    (transformedMatchedProducts.length > 0 &&
+      areAllProductsIncorrect(transformedMatchedProducts, validationStatuses));
+
+  // Count total and filtered products
+  const totalProducts = transformedMatchedProducts.reduce(
+    (sum, match) => sum + match.products.length,
+    0
+  );
+  const visibleProducts = filteredMatchedProducts.reduce(
+    (sum, match) => sum + match.products.length,
+    0
+  );
+  const hasHiddenProducts = totalProducts > visibleProducts;
 
   // Loading state
   if (isLoading) {
@@ -200,9 +417,16 @@ export default function ProductDetailPage() {
 
         {/* Page Title */}
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
-            Product Comparison Detail
-          </h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-bold text-gray-900">
+              Product Comparison Detail
+            </h1>
+            {isManualProductId(productId) && (
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-purple-100 text-purple-800">
+                Manual Entry
+              </span>
+            )}
+          </div>
           <p className="text-gray-600 mt-1">
             Compare prices and verify product matches across retailers
           </p>
@@ -221,24 +445,72 @@ export default function ProductDetailPage() {
               <h2 className="text-lg font-semibold text-gray-900">
                 Matched Products
               </h2>
-              <span className="text-sm text-gray-500">
-                {data.matchedProducts.length} matches found
-              </span>
+              <div className="flex items-center gap-3">
+                {hasHiddenProducts && (
+                  <button
+                    onClick={handleResetValidations}
+                    className="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                    Reset
+                  </button>
+                )}
+                <span className="text-sm text-gray-500">
+                  {visibleProducts} of {totalProducts} matches shown
+                </span>
+              </div>
             </div>
 
-            {data.matchedProducts.length > 0 ? (
+            {/* Manual Comparison Button - Show when all products are incorrect */}
+            {shouldShowManualForm && (
+              <div className="mb-4">
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                  <p className="text-sm text-yellow-800">
+                    All matched products have been marked as incorrect. Click the button below to manually compare this product.
+                  </p>
+                </div>
+                <ManualComparisonButton
+                  productId={productId}
+                  sku={data.product.sku}
+                  url={data.product.prices[Retailer.THAI_WATSADU]?.productUrl}
+                />
+              </div>
+            )}
+
+            {/* Manual Comparison Data Display */}
+            {manualComparisonData && !shouldShowManualForm && (
+              <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-purple-800">
+                    Manual Comparison Entry
+                  </span>
+                  <span className="text-xs text-purple-600">
+                    Added {new Date(manualComparisonData.createdAt).toLocaleDateString()}
+                  </span>
+                </div>
+                <div className="text-sm text-purple-700">
+                  <p><strong>Product:</strong> {manualComparisonData.productName}</p>
+                  <p><strong>SKU:</strong> {manualComparisonData.sku}</p>
+                  <p><strong>Price:</strong> ฿{manualComparisonData.price.toLocaleString()}</p>
+                </div>
+              </div>
+            )}
+
+            {filteredMatchedProducts.length > 0 ? (
               <div className="space-y-4">
-                {data.matchedProducts.map((match) => (
+                {filteredMatchedProducts.map((match) => (
                   <MatchedProductCard
                     key={match.retailer}
                     retailer={match.retailer}
                     confidence={match.confidence}
                     matchType={match.matchType}
-                    product={match.product}
+                    products={match.products}
+                    onMarkCorrect={handleMarkCorrect}
+                    onMarkIncorrect={handleMarkIncorrect}
                   />
                 ))}
               </div>
-            ) : (
+            ) : !shouldShowManualForm ? (
               <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
                 <svg
                   className="w-12 h-12 mx-auto text-gray-400 mb-4"
@@ -257,7 +529,7 @@ export default function ProductDetailPage() {
                   No matched products found from other retailers.
                 </p>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

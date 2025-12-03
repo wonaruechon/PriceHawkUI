@@ -196,6 +196,7 @@ function generateComparisonTableData(
     category: ['Building Materials', 'Paint', 'Tools', 'Fixtures'][Math.floor(Math.random() * 4)],
     stockStatus: 'In Stock',
     retailer: 'THAI_WATSADU',
+    retailerLogo: '/logos/thaiwatsau.png',
   };
 
   // Generate competitor products

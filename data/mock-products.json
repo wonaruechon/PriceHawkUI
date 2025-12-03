@@ -1,0 +1,294 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "sku": "1145439",
+      "name": "SPC NARA CREAM 17.78X121.92X0.4 CM.",
+      "nameTh": "SPC NARA CREAM 17.78X121.92X0.4 CM.",
+      "description": "Premium SPC flooring tile in cream color. Dimensions: 17.78 x 121.92 x 0.4 cm. Water-resistant and durable for indoor use.",
+      "descriptionTh": "กระเบื้องยาง SPC สี Cream คุณภาพสูง ขนาด 17.78 x 121.92 x 0.4 ซม. กันน้ำ ทนทาน เหมาะสำหรับใช้ภายในอาคาร",
+      "category": "Tiles",
+      "categoryTh": "กระเบื้อง",
+      "brand": "XX",
+      "imageUrl": "/products/spc-nara-cream.jpg",
+      "prices": {
+        "thai_watsadu": {
+          "retailer": "thai_watsadu",
+          "price": 100,
+          "currency": "THB",
+          "productUrl": "https://www.thaiwatsadu.com/product/1145439",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "homepro": {
+          "retailer": "homepro",
+          "price": 150,
+          "currency": "THB",
+          "productUrl": "https://www.homepro.co.th/product/1145439",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "global_house": {
+          "retailer": "global_house",
+          "price": 120,
+          "currency": "THB",
+          "productUrl": "https://www.globalhouse.co.th/product/1145439",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "dohome": {
+          "retailer": "dohome",
+          "price": 100,
+          "currency": "THB",
+          "productUrl": "https://www.dohome.co.th/product/1145439",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "boonthavorn": {
+          "retailer": "boonthavorn",
+          "price": 100,
+          "currency": "THB",
+          "productUrl": "https://www.boonthavorn.com/product/1145439",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        }
+      },
+      "status": "cheapest",
+      "lowestPrice": 100,
+      "highestPrice": 150,
+      "priceDifferencePercent": 0
+    },
+    {
+      "id": "2",
+      "sku": "2234561",
+      "name": "TOA SUPER SHIELD WHITE 5L",
+      "nameTh": "TOA SUPER SHIELD WHITE 5L",
+      "description": "TOA Super Shield exterior paint in white. 5 liters. Weather-resistant formula for long-lasting protection.",
+      "descriptionTh": "สีทาภายนอก TOA Super Shield สีขาว ขนาด 5 ลิตร สูตรกันแดดกันฝน ทนทานยาวนาน",
+      "category": "Paint",
+      "categoryTh": "สีทาบ้าน",
+      "brand": "TOA",
+      "imageUrl": "/products/toa-super-shield.jpg",
+      "prices": {
+        "thai_watsadu": {
+          "retailer": "thai_watsadu",
+          "price": 850,
+          "currency": "THB",
+          "productUrl": "https://www.thaiwatsadu.com/product/2234561",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "homepro": {
+          "retailer": "homepro",
+          "price": 820,
+          "currency": "THB",
+          "productUrl": "https://www.homepro.co.th/product/2234561",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "global_house": {
+          "retailer": "global_house",
+          "price": 840,
+          "currency": "THB",
+          "productUrl": "https://www.globalhouse.co.th/product/2234561",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "dohome": {
+          "retailer": "dohome",
+          "price": 830,
+          "currency": "THB",
+          "productUrl": "https://www.dohome.co.th/product/2234561",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "boonthavorn": {
+          "retailer": "boonthavorn",
+          "price": null,
+          "currency": "THB",
+          "productUrl": null,
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": false
+        }
+      },
+      "status": "higher",
+      "lowestPrice": 820,
+      "highestPrice": 850,
+      "priceDifferencePercent": 3.66
+    },
+    {
+      "id": "3",
+      "sku": "3345672",
+      "name": "MAKITA HAMMER DRILL HP1641",
+      "nameTh": "MAKITA HAMMER DRILL HP1641",
+      "description": "Makita HP1641 hammer drill. 680W motor, 13mm chuck size. Variable speed control with forward/reverse function.",
+      "descriptionTh": "สว่านกระแทก Makita HP1641 มอเตอร์ 680W หัวจับ 13 มม. ปรับความเร็วได้ พร้อมฟังก์ชันหมุนกลับ",
+      "category": "Tools",
+      "categoryTh": "เครื่องมือช่าง",
+      "brand": "MAKITA",
+      "imageUrl": "/products/makita-hammer-drill.jpg",
+      "prices": {
+        "thai_watsadu": {
+          "retailer": "thai_watsadu",
+          "price": 2450,
+          "currency": "THB",
+          "productUrl": "https://www.thaiwatsadu.com/product/3345672",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "homepro": {
+          "retailer": "homepro",
+          "price": 2450,
+          "currency": "THB",
+          "productUrl": "https://www.homepro.co.th/product/3345672",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "global_house": {
+          "retailer": "global_house",
+          "price": 2500,
+          "currency": "THB",
+          "productUrl": "https://www.globalhouse.co.th/product/3345672",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "dohome": {
+          "retailer": "dohome",
+          "price": 2480,
+          "currency": "THB",
+          "productUrl": "https://www.dohome.co.th/product/3345672",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "boonthavorn": {
+          "retailer": "boonthavorn",
+          "price": 2450,
+          "currency": "THB",
+          "productUrl": "https://www.boonthavorn.com/product/3345672",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        }
+      },
+      "status": "same",
+      "lowestPrice": 2450,
+      "highestPrice": 2500,
+      "priceDifferencePercent": 0
+    },
+    {
+      "id": "4",
+      "sku": "4456783",
+      "name": "UPVC SLIDING WINDOW 60X150 CM",
+      "nameTh": "UPVC SLIDING WINDOW 60X150 CM",
+      "description": "UPVC sliding window. Dimensions: 60 x 150 cm. Energy-efficient design with double-glazed glass option.",
+      "descriptionTh": "หน้าต่างบานเลื่อน UPVC ขนาด 60 x 150 ซม. ประหยัดพลังงาน รองรับกระจกสองชั้น",
+      "category": "Windows & Doors",
+      "categoryTh": "ประตู-หน้าต่าง",
+      "brand": "MODERN FORM",
+      "imageUrl": "/products/upvc-sliding-window.jpg",
+      "prices": {
+        "thai_watsadu": {
+          "retailer": "thai_watsadu",
+          "price": 3200,
+          "currency": "THB",
+          "productUrl": "https://www.thaiwatsadu.com/product/4456783",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "homepro": {
+          "retailer": "homepro",
+          "price": 3350,
+          "currency": "THB",
+          "productUrl": "https://www.homepro.co.th/product/4456783",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "global_house": {
+          "retailer": "global_house",
+          "price": null,
+          "currency": "THB",
+          "productUrl": null,
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": false
+        },
+        "dohome": {
+          "retailer": "dohome",
+          "price": 3280,
+          "currency": "THB",
+          "productUrl": "https://www.dohome.co.th/product/4456783",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "boonthavorn": {
+          "retailer": "boonthavorn",
+          "price": 3200,
+          "currency": "THB",
+          "productUrl": "https://www.boonthavorn.com/product/4456783",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        }
+      },
+      "status": "cheapest",
+      "lowestPrice": 3200,
+      "highestPrice": 3350,
+      "priceDifferencePercent": 0
+    },
+    {
+      "id": "5",
+      "sku": "5567894",
+      "name": "LED BULB 9W DAYLIGHT",
+      "nameTh": "LED BULB 9W DAYLIGHT",
+      "description": "Philips LED bulb 9W daylight. E27 base. Energy-saving with 25,000 hours lifespan.",
+      "descriptionTh": "หลอดไฟ LED Philips 9 วัตต์ แสงขาว ขั้ว E27 ประหยัดพลังงาน อายุการใช้งาน 25,000 ชั่วโมง",
+      "category": "Electrical",
+      "categoryTh": "ไฟฟ้า",
+      "brand": "PHILIPS",
+      "imageUrl": "/products/led-bulb-9w.jpg",
+      "prices": {
+        "thai_watsadu": {
+          "retailer": "thai_watsadu",
+          "price": 89,
+          "currency": "THB",
+          "productUrl": "https://www.thaiwatsadu.com/product/5567894",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "homepro": {
+          "retailer": "homepro",
+          "price": 95,
+          "currency": "THB",
+          "productUrl": "https://www.homepro.co.th/product/5567894",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "global_house": {
+          "retailer": "global_house",
+          "price": 92,
+          "currency": "THB",
+          "productUrl": "https://www.globalhouse.co.th/product/5567894",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "dohome": {
+          "retailer": "dohome",
+          "price": 89,
+          "currency": "THB",
+          "productUrl": "https://www.dohome.co.th/product/5567894",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        },
+        "boonthavorn": {
+          "retailer": "boonthavorn",
+          "price": 90,
+          "currency": "THB",
+          "productUrl": "https://www.boonthavorn.com/product/5567894",
+          "lastUpdated": "2025-11-29T08:00:00Z",
+          "inStock": true
+        }
+      },
+      "status": "cheapest",
+      "lowestPrice": 89,
+      "highestPrice": 95,
+      "priceDifferencePercent": 0
+    }
+  ]
+}

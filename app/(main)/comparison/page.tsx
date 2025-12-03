@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   ThaiWatsuduInput,
   CompetitorRetailer,
@@ -12,11 +13,15 @@ import {
 import { ReviewConfirmPanel } from '@/components/comparison/ReviewConfirmPanel';
 import { AppleStyleComparisonTable } from '@/components/comparison/AppleStyleComparisonTable';
 import { StageIndicator } from '@/components/comparison/StageIndicator';
-import { CollapsibleStepCard } from '@/components/comparison/CollapsibleStepCard';
 import { Toast, ToastVariant } from '@/components/ui/Toast';
 import { LoadingOverlay } from '@/components/comparison/LoadingOverlay';
 import { MainLayout } from '@/components/layout/MainLayout';
-import { Plus, RotateCcw } from 'lucide-react';
+import { Plus, RotateCcw, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
+import {
+  saveManualComparisonProduct,
+  ComparisonTableData,
+} from '@/lib/utils/manual-comparison-storage';
 
 // Stage type for the 3-stage flow
 type ComparisonStage = 'input' | 'review' | 'results';
@@ -44,7 +49,7 @@ interface ComparisonProduct {
   retailerLogo?: string;
 }
 
-// Comparison response structure
+// Comparison response structure (same as ComparisonTableData)
 interface ComparisonResponse {
   thaiWatsadu: ComparisonProduct;
   competitors: ComparisonProduct[];
@@ -60,7 +65,9 @@ interface ValidationErrors {
   general?: string;
 }
 
-export default function ManualComparisonPage() {
+function ManualComparisonContent() {
+  const searchParams = useSearchParams();
+
   // Stage management
   const [stage, setStage] = useState<ComparisonStage>('input');
 
@@ -75,6 +82,7 @@ export default function ManualComparisonPage() {
 
   // Results state
   const [comparisonData, setComparisonData] = useState<ComparisonResponse | null>(null);
+  const [savedProductId, setSavedProductId] = useState<string | null>(null);
 
   // UI state
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -88,6 +96,27 @@ export default function ManualComparisonPage() {
     message: '',
     variant: 'success',
   });
+
+  // Handle query parameters for pre-filling
+  useEffect(() => {
+    const sku = searchParams.get('sku');
+    const url = searchParams.get('url');
+    const productId = searchParams.get('productId');
+
+    if (sku || url) {
+      setThaiWatsuduInput((prev) => ({
+        ...prev,
+        ...(sku && { sku: sku }),
+        ...(url && { url: url }),
+      }));
+    }
+
+    // Store productId for potential future use (e.g., linking back or storing results)
+    if (productId) {
+      // You can use this productId later to save manual comparison results
+      console.log('Pre-filled from product:', productId);
+    }
+  }, [searchParams]);
 
   // Add new competitor entry
   const handleAddCompetitor = useCallback(() => {
@@ -214,11 +243,16 @@ export default function ManualComparisonPage() {
 
       const result: ComparisonResponse = await response.json();
       setComparisonData(result);
+
+      // Save manual comparison product to localStorage
+      const productId = saveManualComparisonProduct(result as ComparisonTableData);
+      setSavedProductId(productId);
+
       setStage('results');
 
       setToast({
         isVisible: true,
-        message: 'Comparison completed successfully!',
+        message: 'Comparison saved! View in Products page',
         variant: 'success',
       });
     } catch (err) {
@@ -256,9 +290,6 @@ export default function ManualComparisonPage() {
         {/* Page Header */}
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Manual Comparison</h1>
-          <p className="mt-1 text-gray-600">
-            Compare products across retailers with Apple-style elegance
-          </p>
         </div>
 
         {/* Stage Indicator */}
@@ -270,7 +301,7 @@ export default function ManualComparisonPage() {
             {/* Thai Watsadu Input */}
             <div>
               <div className="mb-4 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center font-bold shadow-md">
+                <div className="w-8 h-8 rounded-full bg-cyan-500 text-white flex items-center justify-center font-bold shadow-md">
                   1
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900">
@@ -371,97 +402,18 @@ export default function ManualComparisonPage() {
 
         {/* STAGE 2: REVIEW */}
         {stage === 'review' && (
-          <div className="mx-auto max-w-4xl space-y-6">
-            {/* Collapsible Input Stage Summary */}
-            <CollapsibleStepCard
-              stepNumber={1}
-              stepTitle="Input Stage"
-              isCompleted={true}
-              isActive={false}
-              summaryContent={
-                <div className="text-sm text-gray-600 space-y-2">
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-gray-700">Thai Watsadu SKU:</span>
-                    <span className="font-mono bg-gray-100 px-2 py-0.5 rounded">
-                      {thaiWatsuduInput.sku}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-gray-700">Competitors:</span>
-                    <span>
-                      {competitorEntries.filter((entry) => entry.retailer && entry.url.trim()).length} selected
-                    </span>
-                  </div>
-                </div>
-              }
-              onEdit={handleEditInputs}
-            >
-              {/* Full input content (shown when expanded) */}
-              <div className="space-y-4 text-sm text-gray-700">
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Thai Watsadu Product</h4>
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-gray-600">SKU:</span>
-                      <span className="font-mono bg-gray-50 px-2 py-0.5 rounded">{thaiWatsuduInput.sku}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-gray-600">URL:</span>
-                      <a
-                        href={thaiWatsuduInput.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-cyan-600 hover:text-cyan-700 hover:underline truncate max-w-md"
-                      >
-                        {thaiWatsuduInput.url}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Competitor Products</h4>
-                  <div className="space-y-2">
-                    {competitorEntries
-                      .filter((entry) => entry.retailer && entry.url.trim())
-                      .map((entry, idx) => (
-                        <div key={entry.id} className="p-3 bg-gray-50 rounded-lg">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="font-semibold text-gray-700">
-                              Competitor {idx + 1}:
-                            </span>
-                            <span className="px-2 py-0.5 bg-cyan-100 text-cyan-700 rounded text-xs font-medium">
-                              {entry.retailer}
-                            </span>
-                          </div>
-                          <a
-                            href={entry.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-cyan-600 hover:text-cyan-700 hover:underline text-xs truncate block"
-                          >
-                            {entry.url}
-                          </a>
-                        </div>
-                      ))}
-                  </div>
-                </div>
-              </div>
-            </CollapsibleStepCard>
-
-            {/* Review Confirm Panel */}
-            <ReviewConfirmPanel
-              thaiWatsuduInput={thaiWatsuduInput}
-              competitorEntries={competitorEntries.filter(
-                (entry) => entry.retailer && entry.url.trim()
-              ).map(entry => ({
-                id: entry.id,
-                retailer: entry.retailer as string,
-                url: entry.url
-              }))}
-              onEdit={handleEditInputs}
-              onConfirm={handleConfirmAndCompare}
-            />
-          </div>
+          <ReviewConfirmPanel
+            thaiWatsuduInput={thaiWatsuduInput}
+            competitorEntries={competitorEntries.filter(
+              (entry) => entry.retailer && entry.url.trim()
+            ).map(entry => ({
+              id: entry.id,
+              retailer: entry.retailer as string,
+              url: entry.url
+            }))}
+            onEdit={handleEditInputs}
+            onConfirm={handleConfirmAndCompare}
+          />
         )}
 
         {/* STAGE 3: RESULTS */}
@@ -472,8 +424,17 @@ export default function ManualComparisonPage() {
               competitorProducts={comparisonData.competitors}
             />
 
-            {/* Start New Comparison Button */}
-            <div className="flex justify-center">
+            {/* Action Buttons */}
+            <div className="flex justify-center gap-4">
+              {savedProductId && (
+                <Link
+                  href="/products"
+                  className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 px-8 py-3 font-semibold text-white transition-all hover:from-cyan-600 hover:to-blue-600 hover:shadow-lg"
+                >
+                  <ExternalLink className="h-5 w-5" />
+                  View in Products
+                </Link>
+              )}
               <button
                 type="button"
                 onClick={handleStartNewComparison}
@@ -498,5 +459,22 @@ export default function ManualComparisonPage() {
         onClose={() => setToast({ ...toast, isVisible: false })}
       />
     </MainLayout>
+  );
+}
+
+export default function ManualComparisonPage() {
+  return (
+    <Suspense fallback={
+      <MainLayout>
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading...</p>
+          </div>
+        </div>
+      </MainLayout>
+    }>
+      <ManualComparisonContent />
+    </Suspense>
   );
 }
