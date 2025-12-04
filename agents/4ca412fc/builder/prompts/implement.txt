@@ -1,0 +1,1 @@
+/implement specs/chore-4ca412fc-fix-responsive-design-manual-comparison.md

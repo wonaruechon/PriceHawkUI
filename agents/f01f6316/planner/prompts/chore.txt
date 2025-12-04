@@ -1,0 +1,4 @@
+/chore f01f6316 Update the API route at app/api/products/comparison/[id]/route.ts to return 
+  matchedProducts in new multi-product format: change 'product' object to 'products' array, add unique 'id' field to each 
+  product using pattern '{retailer}_{sku}', and remove the inStock field from matched product response. The products array 
+  should contain a single product for now but support multiple products per retailer in the future.

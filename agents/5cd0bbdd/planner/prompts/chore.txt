@@ -1,0 +1,10 @@
+/chore 5cd0bbdd Implement Product Price Comparison Overview 
+  Page that compares products (same category and SKU) sold by Thai Watsadu, 
+  HomePro, Global House, DoHome, and Boonthavorn. The page should display: product
+   image, product name, SKU, prices from each retailer (clickable links with ฿ 
+  symbol), and a status badge showing whether Thai Watsadu offers the lowest price
+   (green 'Cheapest'), highest price (yellow 'Higher'), or similar price (gray 
+  'Same') compared to competitors. Include search/filter by name, SKU, brand, 
+  category dropdowns, reset button, and CSV export. Reference design spec: 
+  specs/chore-price-comparison-overview.md and UI reference images in 
+  expected/image.png, expected/image2.png, expected/image3.png

@@ -1,0 +1,6 @@
+/chore af1b005f Fix the Status Badge visibility issue - the
+  getStatusColor function in lib/utils/price-utils.ts was correctly updated to use
+   hardcoded Tailwind classes (bg-green-500, bg-amber-500, bg-gray-500), but the
+  tailwind.config.js content array is missing the lib directory. Add
+  './lib/**/*.{js,ts,jsx,tsx}' to the content array in tailwind.config.js so 
+  Tailwind JIT can detect the classes defined in lib/utils/price-utils.ts.

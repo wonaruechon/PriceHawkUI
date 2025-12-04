@@ -1,0 +1,4 @@
+/chore 6a909ca4 Remove the Manual Comparison button from the Products page 
+  (app/(main)/products/page.tsx). This page should only display price information without any action buttons for manual 
+  comparison. The ManualComparisonButton component should not be rendered in the PriceComparisonTable or PriceComparisonRow 
+  on this page. Keep the Manual Comparison functionality available only on the dedicated Manual Comparison page.

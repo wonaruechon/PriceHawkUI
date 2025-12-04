@@ -1,0 +1,57 @@
+/chore 44e26135 Implement Manual Product Comparison Journey with two-sided input flow.
+
+  **Customer Journey Overview (from wireframe):**
+  The flow has 4 main stages:
+  1. Side A (Thai Watsadu Input) - Red header card with SKU and URL fields
+  2. Retailer Selection - List to select from: HomePro, MegaHome, Boonthavorn, Global House, DoHome
+  3. Side B (Competitor Inputs) - For each selected retailer, input URL(s)
+  4. User Validation - Display results showing Match/Not Match with percentages, plus Retry and Confirm buttons
+
+  **Required Implementation:**
+
+  1. **Update /app/(main)/comparison/page.tsx** to implement the new flow:
+     - Stage 1: Show ThaiWatsuduInputCard (Side A) with required SKU and URL fields
+     - Stage 2: Show RetailerSelector to select competitors
+     - Stage 3: Show CompetitorInputCard for each selected retailer (Side B) with URL inputs
+     - Stage 4: After comparison, show UserValidationPanel with results grouped by competitor showing:
+       - 'X URL Match' with confidence percentage (e.g., 86%)
+       - 'X URL Not Match' with percentage (e.g., 5% or 0%)
+       - Retry button to re-run comparison
+       - Confirm button to finalize results
+
+  2. **Create new components in /components/comparison/:**
+     - ThaiWatsuduInputCard.tsx: Red header (#DC2626), SKU input (required), URL input (required)
+     - RetailerSelector.tsx: List of 5 retailers (HomePro, MegaHome, Boonthavorn, Global House, DoHome)
+     - CompetitorInputCard.tsx: Colored header per retailer, URL input(s) with ability to add multiple URLs
+     - UserValidationPanel.tsx: Shows results with Match %, Not Match %, Retry and Confirm buttons
+
+  3. **Update /lib/types/manual-comparison.ts** with new types:
+     - ThaiWatsuduInput: { sku: string, url: string }
+     - CompetitorUrlEntry: { id: string, retailer: CompetitorRetailer, urls: string[] }
+     - ManualComparisonInputV2: { thaiWatsadu: ThaiWatsuduInput, competitors: CompetitorUrlEntry[] }
+     - Add color field to CompetitorInfo interface
+     - Add urlResults, matchCount, notMatchCount to CompetitorMatchResult
+
+  4. **Update /lib/constants/competitors.ts:**
+     - Add color property to each competitor: HomePro (#1E88E5 blue), MegaHome (#43A047 green), Boonthavorn (#7B1FA2 purple),
+   Global House (#F57C00 orange), DoHome (#E64A19 deep orange)
+     - Add THAI_WATSADU_COLOR = '#DC2626' constant
+
+  5. **Update /app/api/comparison/manual/route.ts:**
+     - Support new ManualComparisonRequestV2 format
+     - Generate mock results with matchCount and notMatchCount per competitor
+     - Return results compatible with UserValidationPanel display
+
+  6. **Export new components from /components/comparison/index.ts**
+
+  **UI Layout Flow:**
+  - Left side: Thai Watsadu card (red header) -> Arrow -> Retailer selection list
+  - Right side: Selected competitor cards (colored headers) -> Arrow -> User Validation panel
+  - Final actions: Retry (outline button) and Confirm (solid dark button) at bottom
+
+  **Validation Rules:**
+  - Thai Watsadu SKU and URL are both required
+  - At least one competitor must be selected
+  - Each competitor entry must have at least one valid URL
+
+  Use existing Tailwind CSS patterns from the codebase. Match the visual style shown in the wireframe image.

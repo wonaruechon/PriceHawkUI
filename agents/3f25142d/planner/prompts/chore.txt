@@ -1,0 +1,7 @@
+/chore 3f25142d Fix PriceHawk UI layout to match design: 1)
+  Add 'No.' column as first column in PriceComparisonTable showing row numbers (1,
+   2, 3, etc.) 2) Update ProductSearchFilter layout to put Reset and Export
+  buttons on the same row as the search input and dropdown selects - all elements
+  should be in a single horizontal flex row with proper spacing 3) Wrap the Price
+  Comparison table section in a white card container with shadow and rounded
+  corners (bg-white rounded-lg shadow p-6) similar to the Search & Filter card

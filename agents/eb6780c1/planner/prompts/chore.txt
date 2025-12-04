@@ -1,0 +1,9 @@
+/chore eb6780c1 Update the Products list page (app/(main)/products/page.tsx) and PriceComparisonTable
+  component to respect validation statuses stored in localStorage. When a matched product is marked as 'incorrect' on the
+  Product Comparison Detail page, the corresponding retailer price should be hidden (show '-' or empty) on the Products list
+  page table. The validation statuses are stored in localStorage with key pattern 'pricehawk_validation_{productId}' and
+  contain a statuses object mapping '{retailer}_{sku}' to ValidationStatus. Add a utility function 
+  getAllValidationStatusesForAllProducts() in lib/utils/validation-storage.ts to retrieve all validation statuses across 
+  products. In PriceComparisonRow component, check if the retailer price has been marked 'incorrect' and hide it accordingly.
+   The PriceCell component should accept an optional 'hidden' prop to display '-' instead of the price when the matched 
+  product was marked incorrect.

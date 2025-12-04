@@ -1,0 +1,4 @@
+/chore c10343ed When clicking the Manual Comparison button on the Product Comparison Detail page 
+  (app/(main)/products/[id]/page.tsx), navigate to the Manual Comparison page (app/(main)/comparison/page.tsx) and pass the 
+  product SKU and Thai Watsadu URL as query parameters. The Manual Comparison page should read these query parameters and 
+  pre-fill the SKU field and Thai Watsadu URL field automatically when the page loads.

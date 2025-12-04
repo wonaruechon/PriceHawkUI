@@ -1,0 +1,17 @@
+{
+  "phase": "planning",
+  "adw_id": "3f25142d",
+  "slash_command": "/chore",
+  "args": [
+    "3f25142d",
+    "Fix PriceHawk UI layout to match design: 1)\n  Add 'No.' column as first column in PriceComparisonTable showing row numbers (1,\n   2, 3, etc.) 2) Update ProductSearchFilter layout to put Reset and Export\n  buttons on the same row as the search input and dropdown selects - all elements\n  should be in a single horizontal flex row with proper spacing 3) Wrap the Price\n  Comparison table section in a white card container with shadow and rounded\n  corners (bg-white rounded-lg shadow p-6) similar to the Search & Filter card"
+  ],
+  "path_to_slash_command_prompt": ".claude/commands/chore.md",
+  "model": "sonnet",
+  "working_dir": "/Users/naruechon/Documents/Project/PriceHack",
+  "success": true,
+  "session_id": "3d88cb7d-6a0d-420b-9b7b-1c6aed32baf1",
+  "retry_code": "none",
+  "output": "Plan created successfully! The specification document has been written to:\n\n**`specs/chore-3f25142d-fix-ui-layout-match-design.md`**\n\nThe plan includes:\n- **Task 1**: Verify the \"No.\" column implementation (already exists, needs verification)\n- **Task 2**: Restructure ProductSearchFilter to put all controls in a single horizontal row\n- **Task 3**: Wrap the Price Comparison table section in a white card container with shadow and rounded corners\n- **Task 4**: Test responsive behavior across different screen sizes\n- **Task 5**: Validate visual consistency with the reference design\n\nThe chore focuses on three main layout improvements to match the design shown in `expected/image.png`, with clear step-by-step instructions and validation commands to ensure the work is complete.",
+  "plan_path": "specs/chore-3f25142d-fix-ui-layout-match-design.md"
+}

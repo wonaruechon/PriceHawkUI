@@ -1,0 +1,29 @@
+/chore c193c1dd Implement a 'Manual Comparison' button that appears when all matched products for a 
+  product row are marked as 'incorrect'. 
+
+  CONTEXT:
+  - PriceComparisonTable.tsx displays product rows with prices from multiple retailers (THAI_WATSADU, HOMEPRO, GLOBAL_HOUSE, 
+  DOHOME, BOONTHAVORN)
+  - Validation statuses are stored in localStorage via lib/utils/validation-storage.ts with pattern 
+  'pricehawk_validation_{productId}'
+  - Matched product IDs follow format: '${retailer.toLowerCase()}_${product.sku}'
+  - ValidationStatus type is 'pending' | 'correct' | 'incorrect'
+
+  REQUIREMENTS:
+  1. In PriceComparisonRow.tsx (or PriceComparisonTable.tsx), check if ALL matched products for a product are marked as 
+  'incorrect' using the validationStatuses prop
+  2. When all retailer matches are 'incorrect', display a 'Manual Comparison' button in the row (could replace the price 
+  cells area or appear as an action button)
+  3. The button should navigate to /comparison page with the product's SKU pre-filled as a query parameter (e.g., 
+  /comparison?sku={product.sku}&productId={product.id})
+  4. Use Next.js Link or router.push for navigation
+  5. Style the button consistently with existing UI (Tailwind CSS, similar to other action buttons in the codebase)
+
+  FILES TO MODIFY:
+  - components/products/PriceComparisonRow.tsx - Add logic to detect all-incorrect state and render Manual Comparison button
+  - Possibly components/products/PriceComparisonTable.tsx if row-level changes need table-level support
+  - Optionally app/(main)/comparison/page.tsx - Handle incoming query params to pre-fill the form
+
+  HELPER FUNCTION SUGGESTION:
+  Create a function like 'areAllMatchesIncorrect(productId: string, retailers: Retailer[], validationStatuses): boolean' that
+   checks if every retailer's matched product is marked incorrect

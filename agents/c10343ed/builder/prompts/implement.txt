@@ -1,0 +1,1 @@
+/implement specs/chore-c10343ed-manual-comparison-navigation.md

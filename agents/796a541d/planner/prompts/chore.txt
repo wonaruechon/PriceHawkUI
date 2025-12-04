@@ -1,0 +1,2 @@
+/chore 796a541d Fix EADDRINUSE error - port 3010 is already in use when running npm run dev. Find and 
+  kill the process using port 3010, or configure the Next.js app to use a different available port.

@@ -1,0 +1,5 @@
+/chore b2ada353 Implement Product Price Comparison Overview 
+  Page per specs/chore-price-comparison-overview.md - compare Thai Watsadu vs 
+  HomePro, Global House, DoHome, Boonthavorn with price table, status badges 
+  (Cheapest/Higher/Same), search/filter, and export. Reference UI: 
+  expected/image.png

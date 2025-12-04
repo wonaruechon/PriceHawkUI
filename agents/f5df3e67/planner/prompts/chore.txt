@@ -1,0 +1,51 @@
+/chore f5df3e67 Refactor Product Comparison Detail page (app/(main)/products/[id]/page.tsx) with the
+  following UI changes:
+
+  1. DELETE STOCK FIELD:
+  - Remove stock/inStock field from ProductDetailCard.tsx (components/products/ProductDetailCard.tsx lines 76-80)
+  - Remove stock field from MatchedProductCard.tsx (components/products/MatchedProductCard.tsx lines 89-94)
+
+  2. RETAILER HEADER COLORS - Add distinct header colors for each retailer in MatchedProductCard.tsx:
+  - Thai Watsadu: bg-red-600 (already in ProductDetailCard)
+  - HomePro: bg-red-500 or bg-red-600
+  - Global House: bg-blue-800 or bg-indigo-700
+  - DoHome: bg-orange-500
+  - Boonthavorn: bg-green-600
+  Create a RetailerColors constant mapping Retailer enum to Tailwind bg colors, and apply to the card header div (currently
+  bg-gray-50)
+
+  3. ADD VALIDATION ACTION BUTTONS (Incorrect/Correct) at bottom of each matched product item:
+  - Add two buttons at the bottom-right of each matched product: 'Incorrect' (X icon, gray/red style) and 'Correct'
+  (checkmark icon, green style)
+  - Incorrect button: onClick marks product as validation_status='incorrect', shows incorrect status badge (red X), stores in
+   localStorage/API
+  - Correct button: onClick marks product as validation_status='correct', shows correct status badge (green checkmark),
+  stores in localStorage/API
+  - On page refresh: filter out products with validation_status='incorrect', keep products with 'correct' or undefined status
+
+  4. SUPPORT MULTIPLE MATCHED PRODUCTS PER RETAILER:
+  - Update ProductComparisonDetailResponse type to allow array of products per retailer match
+  - Update matchedProducts structure to support multiple items within same retailer card (see Boonthavorn example with 2 
+  products at ฿90 and ฿75)
+  - Each product within a retailer should have its own Incorrect/Correct buttons
+
+  5. MANUAL COMPARISON FALLBACK:
+  - If ALL matched products for a source product are marked 'incorrect', show ManualComparisonForm component 
+  (components/comparison/ManualComparisonForm.tsx)
+  - After successful manual comparison submission, display the manually entered data in the matched products section
+  - Store manual comparison results alongside validation status
+
+  6. ADD VALIDATION STATUS TYPES to lib/types/price-comparison.ts:
+  - Add ValidationStatus type: 'pending' | 'correct' | 'incorrect'
+  - Add validationStatus field to matched product interface
+  - Add isManualEntry boolean field
+
+  7. CREATE API ENDPOINT or localStorage utility for persisting validation status:
+  - POST /api/products/comparison/[id]/validate - to save validation status
+  - Or create lib/utils/validation-storage.ts for localStorage-based persistence
+
+  Files to modify:
+  - components/products/ProductDetailCard.tsx (remove stock)
+  - components/products/MatchedProductCard.tsx (remove stock, add colors, add action buttons)
+  - app/(main)/products/[id]/page.tsx (handle validation state, filter incorrect, show manual form)
+  - lib/types/price-comparison.ts (add validation types)

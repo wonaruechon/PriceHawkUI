@@ -1,0 +1,17 @@
+{
+  "phase": "planning",
+  "adw_id": "18cd112b",
+  "slash_command": "/chore",
+  "args": [
+    "18cd112b",
+    "Adjust UI design for Manual Comparison page with the following changes:\n\n  1. LOGO UPDATES - Update retailer logos in both Input stage (CompetitorInputCard) and Results stage to use PNG logos from \n  'expected/logo/' folder:\n     - HomePro: /expected/logo/homepro.png\n     - MegaHome: /expected/logo/megahome.png\n     - Boonthavorn: /expected/logo/boonthavorn.png\n     - Global House: /expected/logo/globalhouse.png\n     - DoHome: /expected/logo/dohome.png\n     - Thai Watsadu: /expected/logo/thaiwatsau.png\n     Update the logo paths in lib/constants/competitors.ts and ensure logos display correctly in retailer selection grid and \n  results display.\n\n  2. RESULTS PAGE CLEANUP - In the comparison results view:\n     - Remove price difference display (e.g., '\u0e3f325 more expensive (+7.5%)' badge/text)\n     - Remove pricing details section: discount percentage, unit price fields\n     - Remove stock status/availability info but KEEP the product URL link\n     - Ensure consistent font sizing across all elements on the page\n\n  3. PAGE HEADER - Remove the subtitle text 'Compare products across retailers with Apple-style elegance' from the Manual \n  Comparison page header in app/(main)/comparison/page.tsx\n\n  Files to modify: lib/constants/competitors.ts, components/comparison/CompetitorInputCard.tsx, \n  app/(main)/comparison/page.tsx, and any result display components showing price comparisons."
+  ],
+  "path_to_slash_command_prompt": ".claude/commands/chore.md",
+  "model": "sonnet",
+  "working_dir": "/Users/naruechon/Documents/Project/PriceHack",
+  "success": true,
+  "session_id": "c95db471-01ee-430b-bc79-fc405a09ad62",
+  "retry_code": "none",
+  "output": "Perfect! I've created a comprehensive plan for the Manual Comparison UI cleanup chore.\n\n## Plan Created\n\n**File location:** `specs/chore-18cd112b-manual-comparison-ui-cleanup.md`\n\nThe plan includes:\n\n### 1. **Logo Updates**\n- Update all 5 retailer logos from SVG to PNG format in `lib/constants/competitors.ts`\n- Verified all PNG files exist in `expected/logo/` directory\n\n### 2. **Results Page Cleanup**\n- Simplify price display to show only competitor prices without difference badges\n- Remove \"Pricing Details\" section (discount %, unit price)\n- Remove stock status from availability section, keep only product URL links\n- Ensure consistent font sizing throughout\n\n### 3. **Page Header**\n- Remove the subtitle \"Compare products across retailers with Apple-style elegance\"\n\n### Key Files to Modify:\n- `lib/constants/competitors.ts` - Update logo paths\n- `app/(main)/comparison/page.tsx` - Remove subtitle\n- `components/comparison/PriceDifferenceDisplay.tsx` - Simplify to show price only\n- `components/comparison/AppleStyleComparisonTable.tsx` - Remove pricing details & stock status sections\n\nThe plan includes 7 detailed step-by-step tasks and validation commands to ensure the work is complete and correct.",
+  "plan_path": "specs/chore-18cd112b-manual-comparison-ui-cleanup.md"
+}

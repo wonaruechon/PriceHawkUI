@@ -1,0 +1,4 @@
+/chore f0f68c05 Fix CompetitorInputCard retailer selection - clicking a retailer button (HomePro, 
+  MegaHome, etc.) should update the retailer state and enable the Product URL input. Currently the onClick handler in the 
+  retailer button grid is not triggering the state update properly. The button click should call onRetailerChange(comp.id) 
+  and setShowRetailerSelector(false) to select the retailer and show the URL input field.

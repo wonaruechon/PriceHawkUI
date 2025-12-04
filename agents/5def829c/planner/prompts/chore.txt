@@ -1,0 +1,16 @@
+/chore 5def829c Implement frontend UI styling to match the 
+  PriceHawk design system from the style guide images. Apply the following theme: 
+  1) Primary color: cyan/sky-blue (#0EA5E9) for brand, links, and active states 2)
+   Background: light gray (#F8FAFC) for main content area 3) Sidebar: white 
+  background with cyan highlight for active menu item, dark text 4) Cards: white 
+  with subtle shadow and rounded corners 5) Status badges: green (#22C55E) for 
+  'Cheapest', red (#EF4444) for 'Higher', gray (#6B7280) for 'Same' with white 
+  text and rounded-full style 6) Price cells: cyan colored text with external link
+   icon 7) Table: clean design with light borders, header in gray text 8) Buttons:
+   cyan filled for primary (Export), outline for secondary (Reset) 9) 
+  Search/Filter section: white card with search input, dropdown selects for 
+  Categories and Brands 10) Typography: clean sans-serif, dark gray for headings, 
+  medium gray for secondary text. Update tailwind.config.js with proper color 
+  palette and apply styles to all components including Sidebar, 
+  PriceComparisonTable, StatusBadge, PriceCell, ProductSearchFilter, and 
+  ExportButton.

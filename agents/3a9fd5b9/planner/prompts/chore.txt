@@ -1,0 +1,53 @@
+/chore 3a9fd5b9 Adjust the Manual Comparison page UI/layout based on the expected design in 
+  '/Users/naruechon/Documents/Project/PriceHack/expected/Untitled (14)'. Key changes needed:
+
+  **Stage Indicator (StageIndicator.tsx):**
+  - Use cyan/teal colored circles for all step numbers (not red for step 1)
+  - Active step: solid cyan background with white number
+  - Completed step: cyan background with white checkmark
+  - Inactive step: gray background
+  - Labels under circles: 'Input' -> 'Enter product details', 'Review' -> 'Confirm your inputs', 'Results' -> 'View 
+  comparison'
+
+  **Stage 1 - Input (comparison/page.tsx):**
+  - Step badges: Change from red (1) and cyan (2) to both use cyan numbered badges
+  - Thai Watsadu Input Card (ThaiWatsuduInputCard.tsx): Red header bar with cart icon and text 'Thai Watsadu (Source 
+  Product)' in white
+  - SKU field: placeholder 'e.g., TW-12345-ABC', helper text 'Enter the unique product identifier from Thai Watsadu'
+  - URL field: placeholder 'https://www.thaiwatsadu.com/...', helper text 'Copy and paste the full URL from your browser 
+  address bar'
+  - Competitor Card (CompetitorInputCard.tsx): 
+    - Header shows 'Competitor' with X close button
+    - 'Select Retailer *' label with info icon
+    - Retailer selector as 2-column grid showing logo + name + Thai name for each (HomePro/โฮมโปร, MegaHome/เมกาโฮม, 
+  Boonthavorn/บุญถาวร, Global House/โกลบอลเฮ้าส์, DoHome/ดูโฮม)
+    - Helper text 'Choose a retailer to compare products from'
+    - Product URL field below with placeholder 'Select a retailer first' when no retailer selected
+  - Add Competitor button: Dashed cyan border, light cyan gradient background, cyan plus icon in circle, text 'Add Competitor
+   (X/5)'
+  - Next button: Cyan gradient, positioned at bottom right
+
+  **Stage 2 - Review (ReviewConfirmPanel.tsx):**
+  - Remove CollapsibleStepCard, use new centered layout
+  - Centered heading 'Review Your Comparison' with subtitle 'Verify all details before proceeding with the comparison'
+  - Status card: Light green/teal background with checkmark icon, 'Ready to Compare' title, subtitle 'X Thai Watsadu product 
+  vs Y competitor(s)'
+  - Thai Watsadu summary card: Red header with cart icon + 'Thai Watsadu' + 'Source Product' subtitle, white body showing SKU
+   (in gray badge) and URL (as cyan link with external icon)
+  - Competitor Products section: Card with header 'Competitor Products (X)' + 'Comparing against these retailers', each 
+  competitor shown with number badge, retailer logo, name + Thai name, and URL link
+  - Bottom buttons: '← Back to Edit' (outline style left), '✓ Confirm & Compare' (solid cyan gradient right)
+
+  **Stage 3 - Results (AppleStyleComparisonTable.tsx):**
+  - Horizontal table layout with retailer columns
+  - Header row: Retailer logos centered in each column (Thai Watsadu first, then competitors)
+  - 'Compare' row: Product images for each retailer
+  - 'PRICE COMPARISON' section header (uppercase, gray text)
+  - 'Price' row: Large prices in Thai Baht format (฿X,XXX)
+  - 'PRODUCT INFORMATION' section header
+  - Rows for: Product Name, SKU, Brand (with checkmark if matching), Category (with checkmark if matching)
+  - 'Product Link' row with 'View Product' cyan links + external icon
+
+  Files to modify: app/(main)/comparison/page.tsx, components/comparison/StageIndicator.tsx, 
+  components/comparison/ThaiWatsuduInputCard.tsx, components/comparison/CompetitorInputCard.tsx, 
+  components/comparison/ReviewConfirmPanel.tsx, components/comparison/AppleStyleComparisonTable.tsx

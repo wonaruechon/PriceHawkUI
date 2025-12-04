@@ -1,0 +1,17 @@
+{
+  "phase": "planning",
+  "adw_id": "eb6780c1",
+  "slash_command": "/chore",
+  "args": [
+    "eb6780c1",
+    "Update the Products list page (app/(main)/products/page.tsx) and PriceComparisonTable\n  component to respect validation statuses stored in localStorage. When a matched product is marked as 'incorrect' on the\n  Product Comparison Detail page, the corresponding retailer price should be hidden (show '-' or empty) on the Products list\n  page table. The validation statuses are stored in localStorage with key pattern 'pricehawk_validation_{productId}' and\n  contain a statuses object mapping '{retailer}_{sku}' to ValidationStatus. Add a utility function \n  getAllValidationStatusesForAllProducts() in lib/utils/validation-storage.ts to retrieve all validation statuses across \n  products. In PriceComparisonRow component, check if the retailer price has been marked 'incorrect' and hide it accordingly.\n   The PriceCell component should accept an optional 'hidden' prop to display '-' instead of the price when the matched \n  product was marked incorrect."
+  ],
+  "path_to_slash_command_prompt": ".claude/commands/chore.md",
+  "model": "sonnet",
+  "working_dir": "/Users/naruechon/Documents/Project/PriceHack",
+  "success": true,
+  "session_id": "976366af-723c-4dc4-b6a4-80edfaed7e5f",
+  "retry_code": "none",
+  "output": "Plan created successfully! The specification document has been saved to:\n\n**`specs/chore-eb6780c1-hide-incorrect-prices.md`**\n\nThe plan includes:\n- Detailed chore description explaining the behavior change\n- List of all relevant files with explanations of why they need changes\n- 6 step-by-step tasks in logical order:\n  1. Add utility function to retrieve all validation statuses from localStorage\n  2. Add `hidden` prop to PriceCell component\n  3. Update PriceComparisonRow to check validation statuses for each retailer\n  4. Update PriceComparisonTable to pass validation statuses through\n  5. Update Products page to load and distribute validation statuses\n  6. Test the complete implementation\n- Validation commands for type-checking, linting, and building\n- Manual testing steps to verify the feature works correctly\n- Important notes covering localStorage patterns, validation status values, component hierarchy, performance considerations, and edge cases\n\nThe plan follows a bottom-up implementation approach, starting with the foundational utility function and component props, then connecting them through the component hierarchy up to the page level.",
+  "plan_path": "specs/chore-eb6780c1-hide-incorrect-prices.md"
+}

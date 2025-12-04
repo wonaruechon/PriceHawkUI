@@ -1,0 +1,17 @@
+{
+  "phase": "planning",
+  "adw_id": "ea4d1e03",
+  "slash_command": "/chore",
+  "args": [
+    "ea4d1e03",
+    "Modify Product Comparison Detail page to show a 'Manual Comparison' button instead of \n  inline ManualComparisonForm when all matched products are marked as incorrect.\n\n  CURRENT BEHAVIOR (in app/(main)/products/[id]/page.tsx):\n  - When shouldShowManualForm is true (all products marked incorrect), it renders an inline <ManualComparisonForm /> \n  component directly on the detail page\n  - The logic uses areAllProductsIncorrect() function to determine this state\n\n  DESIRED BEHAVIOR:\n  - When all matched products are marked as 'incorrect', instead of showing the inline ManualComparisonForm, display a \n  'Manual Comparison' button\n  - The button should navigate to /comparison page with query params to pre-fill the form:\n    - sku={data.product.sku}\n    - productId={productId}\n    - name={data.product.name} (URL encoded)\n    - Optional: price, imageUrl from Thai Watsadu data\n\n  CHANGES REQUIRED:\n  1. In the section where shouldShowManualForm is true (lines 439-451), replace the inline ManualComparisonForm with:\n     - Keep the yellow warning box that says 'All matched products have been marked as incorrect'\n     - Replace ManualComparisonForm with a styled 'Manual Comparison' button\n     - Button should use Next.js Link or router.push to navigate to /comparison page with query params\n\n  2. Button styling should:\n     - Be prominent and clearly visible (primary color like blue-600)\n     - Include an icon (e.g., external link or compare icon from lucide-react)\n     - Match existing button styles in the codebase (Tailwind CSS)\n\n  3. Optionally update /comparison page (app/(main)/comparison/page.tsx) to:\n     - Read query params on mount\n     - Pre-fill the Thai Watsadu SKU/URL input fields with the passed data\n\n  KEEP:\n  - All existing validation logic (areAllProductsIncorrect, validationStatuses, etc.)\n  - The ManualComparisonData display section (lines 454-470)\n  - Reset functionality\n  - Can remove or keep the ManualComparisonForm import depending on if it's used elsewhere"
+  ],
+  "path_to_slash_command_prompt": ".claude/commands/chore.md",
+  "model": "opus",
+  "working_dir": "/Users/naruechon/Documents/Project/PriceHack",
+  "success": true,
+  "session_id": "b45d302a-314b-4cb7-b9ed-3055d3458294",
+  "retry_code": "none",
+  "output": "Plan file created at: **`specs/chore-ea4d1e03-manual-comparison-button.md`**\n\n### Summary\n\nThe plan covers:\n1. **Replacing the inline `ManualComparisonForm`** with the existing `ManualComparisonButton` component when all matched products are marked as incorrect\n2. **Keeping the yellow warning box** to inform users that all products have been marked incorrect\n3. **Leveraging existing infrastructure** - the `ManualComparisonButton` component already exists and navigates to `/comparison` with `sku` and `productId` query params\n4. **The comparison page already handles** the `sku` and `productId` query params for pre-filling\n5. **Cleanup tasks** - removing unused imports and potentially dead code after the change",
+  "plan_path": "specs/chore-ea4d1e03-manual-comparison-button.md"
+}

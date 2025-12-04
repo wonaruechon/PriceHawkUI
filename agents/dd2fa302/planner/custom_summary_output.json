@@ -1,0 +1,17 @@
+{
+  "phase": "planning",
+  "adw_id": "dd2fa302",
+  "slash_command": "/chore",
+  "args": [
+    "dd2fa302",
+    "Fix the Status Badge visibility issue in the\n   Product Price Comparison page. The badges (Cheapest/Higher/Same) exist in the\n  DOM but have transparent backgrounds because Tailwind's JIT compiler cannot\n  detect the dynamically generated class names (bg-status-cheapest,\n  bg-status-higher, bg-status-same). Fix by either: 1) Adding a safelist to\n  tailwind.config.js for these classes, OR 2) Modifying StatusBadge.tsx to use\n  hardcoded Tailwind classes instead of dynamic ones from getStatusColor(). The\n  expected colors are: Cheapest=#10B981 (green), Higher=#F59E0B (yellow/orange),\n  Same=#6B7280 (gray), Unavailable=#D1D5DB (light gray)."
+  ],
+  "path_to_slash_command_prompt": ".claude/commands/chore.md",
+  "model": "sonnet",
+  "working_dir": "/Users/naruechon/Documents/Project/PriceHack",
+  "success": true,
+  "session_id": "cbbf03f3-6dd9-4a5f-9a06-e7d3b568ac04",
+  "retry_code": "none",
+  "output": "Perfect! I've created the plan document for fixing the Status Badge visibility issue.\n\n## Summary\n\nPlan created at: **`specs/chore-dd2fa302-fix-status-badge-visibility.md`**\n\n**The Issue:**\nStatus badges exist in the DOM but have transparent backgrounds because Tailwind's JIT compiler cannot detect dynamically generated class names like `bg-status-cheapest` that are returned from the `getStatusColor()` function.\n\n**The Solution:**\nReplace dynamic custom color classes with hardcoded Tailwind utility classes:\n- Cheapest: `bg-green-500 text-white`\n- Higher: `bg-amber-500 text-white`  \n- Same: `bg-gray-500 text-white`\n- N/A: `bg-gray-300 text-gray-600`\n\nThis approach is superior to using a safelist because it's more maintainable, follows Tailwind best practices, and ensures the JIT compiler can detect and include the necessary CSS at build time.\n\nThe plan includes 5 steps with validation commands to ensure the fix works correctly.",
+  "plan_path": "specs/chore-dd2fa302-fix-status-badge-visibility.md"
+}

@@ -1,0 +1,17 @@
+{
+  "phase": "planning",
+  "adw_id": "4b6b710e",
+  "slash_command": "/chore",
+  "args": [
+    "4b6b710e",
+    "Fix PriceComparisonTable.tsx header text to use uppercase as specified in the chore:\n  Change 'Product Name' to 'PRODUCT NAME', 'Brand' to 'BRAND', 'Category' to 'CATEGORY', 'Status' to 'STATUS', 'Thai Watsadu'\n   to 'THAI WATSADU', 'HomePro' to 'HOMEPRO', 'Global House' to 'GLOBAL HOUSE', 'Do Home' to 'DO HOME', and 'Boonthavorn' to\n  'BOONTHAVORN'. The headers should match the spec which requires all uppercase formatting for table column headers."
+  ],
+  "path_to_slash_command_prompt": ".claude/commands/chore.md",
+  "model": "sonnet",
+  "working_dir": "/Users/naruechon/Documents/Project/PriceHack",
+  "success": true,
+  "session_id": "65530849-668d-4738-b9b2-30f377cb648a",
+  "retry_code": "none",
+  "output": "Plan created successfully! The plan file is located at:\n\n**`specs/chore-4b6b710e-fix-table-header-uppercase.md`**\n\nThis is a straightforward text formatting fix that requires updating 9 table header strings in the PriceComparisonTable.tsx component to use uppercase formatting. The plan includes:\n\n1. **Metadata** - ADW ID and the original prompt\n2. **Chore Description** - Clear explanation of what needs to be changed and why\n3. **Relevant Files** - Only one file needs modification: `components/products/PriceComparisonTable.tsx`\n4. **Step by Step Tasks** - Detailed instructions for updating each header text with specific line numbers\n5. **Validation Commands** - Commands to run type-check, lint, build, and manual visual verification\n6. **Notes** - Context about this being a cosmetic change that aligns with the design specification\n\nThe change is simple: update 9 header text strings from mixed case to uppercase to match the UI specification requirements.",
+  "plan_path": "specs/chore-4b6b710e-fix-table-header-uppercase.md"
+}

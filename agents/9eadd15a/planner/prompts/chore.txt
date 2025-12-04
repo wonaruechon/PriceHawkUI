@@ -1,0 +1,19 @@
+/chore 9eadd15a Adjust the Products page price comparison table UI with the following changes:
+
+  1. COLUMN ORDERING - Reorder table columns to: NO., SKU, PRODUCT NAME, BRAND, CATEGORY, STATUS, then all retailer price
+  columns (THAI WATSADU, HOMEPRO, GLOBAL HOUSE, DO HOME, BOONTHAVORN). Move STATUS column to be before the price columns for
+  better visual flow.
+
+  2. PRICE COLOR CODING - Apply dynamic color styling to each individual price cell based on comparison logic:
+     - GREEN (#10B981 or text-green-600): The cell with the LOWEST/CHEAPEST price among all retailers for that product row
+     - GRAY (#6B7280 or text-gray-500): Prices that are the SAME or within 1-2% of the cheapest price (similar/matching
+  prices)
+     - RED (#EF4444 or text-red-600): Prices that are HIGHER than the cheapest price (not matching the minimum)
+
+  3. Each price cell should be individually colored based on whether that specific retailer's price is the cheapest, same, or
+   higher compared to other retailers in the same row. Remove the current uniform teal color.
+
+  4. Keep the external link icons on prices but apply the dynamic color to both the price text and icon.
+
+  5. The STATUS badge column should remain as-is (Cheapest=green, Same=gray, Higher=yellow/orange badges) but reflect the
+  overall product status.

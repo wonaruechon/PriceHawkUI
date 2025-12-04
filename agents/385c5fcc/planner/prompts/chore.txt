@@ -1,0 +1,10 @@
+/chore 385c5fcc Enhance Products page UX/UI styling to match design reference while preserving existing
+   functionality: 1) PriceCell.tsx - change price text color from current styling to cyan-500 (teal), ensure external link
+  icon displays next to price, maintain clickable link behavior. 2) StatusBadge.tsx - update badge color scheme: 'cheapest'
+  status should use green background (bg-green-500 text-white), 'higher' status should use amber/orange background
+  (bg-amber-500 text-white), 'same' status should use gray background (bg-gray-200 text-gray-700), ensure pill/rounded-full
+  shape. 3) PriceComparisonTable.tsx - add 'No.' column as first column showing row number (1, 2, 3...), reorder columns to
+  match: No., Category, SKU, Product Name, Brand, Thai Watsadu, HomePro, Global House, Do Home, Boonthavorn, Status. Display
+  dash '-' for null/missing prices. 4) ProductSearchFilter.tsx - style Export button with cyan-500 background and white text
+  with download icon, style Reset button with border and gray text with refresh icon. Keep all existing filter logic, API
+  calls, and data flow unchanged.

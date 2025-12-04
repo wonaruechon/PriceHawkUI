@@ -1,0 +1,22 @@
+/chore 91f33547 Complete the Manual Comparison Button feature per
+  specs/chore-c193c1dd-manual-comparison-button.md:
+
+  1. CREATE components/products/ManualComparisonButton.tsx:
+     - Props: productId: string, sku: string
+     - Use Next.js useRouter for navigation to /comparison?sku={sku}&productId={productId}
+     - Style with cyan-500 bg, cyan-600 hover, rounded corners, shadow
+     - Include Lucide Search icon
+     - Add 'use client' directive
+
+  2. MODIFY components/products/PriceComparisonRow.tsx:
+     - Add areAllCompetitorMatchesIncorrect() helper function checking HOMEPRO, GLOBAL_HOUSE, DOHOME, BOONTHAVORN (exclude 
+  THAI_WATSADU)
+     - Return true ONLY if ALL 4 competitor retailers have validation status 'incorrect'
+     - When true, render ManualComparisonButton with colspan=4 replacing the 4 competitor price cells
+     - Keep product info cells (NO., SKU, NAME, BRAND, CATEGORY, STATUS, THAI WATSADU) visible
+
+  3. MODIFY app/(main)/comparison/page.tsx:
+     - Import useSearchParams from 'next/navigation'
+     - On mount, check for 'sku' and 'productId' query params
+     - Pre-fill thaiWatsuduInput.sku with the SKU value if present
+     - Store productId for later use

@@ -1,0 +1,1 @@
+/implement specs/chore-4b6b710e-fix-table-header-uppercase.md

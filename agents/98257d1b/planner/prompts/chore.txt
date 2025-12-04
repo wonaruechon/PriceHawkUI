@@ -1,0 +1,4 @@
+/chore 98257d1b Fix remaining UX enhancements for Manual Comparison page: 1) Add pulsing animation to
+  active stage in StageIndicator component using animate-pulse or custom keyframe for emphasis. 2) Add ring effect (ring-2
+  ring-cyan-400 ring-offset-2) to the active stage circle for better visual highlighting. 3) Optionally integrate
+  CollapsibleStepCard in Review stage to collapse the Input stage summary with an expand/collapse toggle.

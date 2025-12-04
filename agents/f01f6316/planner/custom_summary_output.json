@@ -1,0 +1,17 @@
+{
+  "phase": "planning",
+  "adw_id": "f01f6316",
+  "slash_command": "/chore",
+  "args": [
+    "f01f6316",
+    "Update the API route at app/api/products/comparison/[id]/route.ts to return \n  matchedProducts in new multi-product format: change 'product' object to 'products' array, add unique 'id' field to each \n  product using pattern '{retailer}_{sku}', and remove the inStock field from matched product response. The products array \n  should contain a single product for now but support multiple products per retailer in the future."
+  ],
+  "path_to_slash_command_prompt": ".claude/commands/chore.md",
+  "model": "sonnet",
+  "working_dir": "/Users/naruechon/Documents/Project/PriceHack",
+  "success": true,
+  "session_id": "a800b77b-93be-4a98-a5ba-aff79ce5b7c3",
+  "retry_code": "none",
+  "output": "Perfect! I've created the plan file for this chore. Here's a summary:\n\n## Plan Created: `specs/chore-f01f6316-update-api-multi-product-format.md`\n\nThe plan details the migration from the legacy single-product format to the new multi-product format for the API endpoint at `app/api/products/comparison/[id]/route.ts`.\n\n### Key Changes Required:\n1. **Change `product` \u2192 `products`**: Replace the singular `product` object with a `products` array\n2. **Add unique IDs**: Each product gets an `id` field using pattern `{retailer}_{sku}`\n3. **Remove `inStock` field**: This field should not be in the matched product response\n4. **Single product for now**: The array will contain one product initially but supports multiple in the future\n\n### Why This is Safe:\n- The frontend already has transformation logic to handle both old and new formats\n- Type definitions already support both `RetailerMatch` (new) and `LegacyMatchedProduct` (old)\n- This change makes the API directly return the preferred new format\n\nThe plan includes specific validation commands to ensure the changes work correctly including type checking and API endpoint testing.",
+  "plan_path": "specs/chore-f01f6316-update-api-multi-product-format.md"
+}

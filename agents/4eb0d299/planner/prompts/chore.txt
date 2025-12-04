@@ -1,0 +1,9 @@
+/chore 4eb0d299 Use Playwright MCP to validate the CompetitorInputCard retailer selection fix on
+  http://localhost:3000/comparison. Test steps: 1) Navigate to the comparison page, 2) Take a screenshot of the initial state
+   showing the retailer grid (HomePro, MegaHome, Boonthavorn, Global House, DoHome buttons visible), 3) Click on the HomePro
+  retailer button, 4) Take a screenshot after clicking - verify: the retailer grid is hidden, HomePro is shown as selected
+  with blue brand color and logo, the Product URL input is enabled with placeholder 'https://www.homepro.co.th/...', and a
+  'Change' button appears, 5) Click the 'Change' button to verify the retailer grid reappears, 6) Select MegaHome retailer
+  and verify it shows with green brand color. Save screenshots to .playwright-mcp/ folder with descriptive names like
+  'retailer-selection-before.png' and 'retailer-selection-after.png'. Report PASS if all validations succeed, FAIL with
+  details if any step fails.

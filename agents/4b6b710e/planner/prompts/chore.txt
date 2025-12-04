@@ -1,0 +1,4 @@
+/chore 4b6b710e Fix PriceComparisonTable.tsx header text to use uppercase as specified in the chore:
+  Change 'Product Name' to 'PRODUCT NAME', 'Brand' to 'BRAND', 'Category' to 'CATEGORY', 'Status' to 'STATUS', 'Thai Watsadu'
+   to 'THAI WATSADU', 'HomePro' to 'HOMEPRO', 'Global House' to 'GLOBAL HOUSE', 'Do Home' to 'DO HOME', and 'Boonthavorn' to
+  'BOONTHAVORN'. The headers should match the spec which requires all uppercase formatting for table column headers.

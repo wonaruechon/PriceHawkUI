@@ -1,0 +1,3 @@
+/chore 9bc4a23c Fix missing Thai Watsadu logo in API response: In app/api/comparison/manual/route.ts,
+  update the generateComparisonTableData function to add retailerLogo: '/expected/logo/thaiwatsau.png' to the
+  thaiWatsuduProduct object (around line 198, after stockStatus)

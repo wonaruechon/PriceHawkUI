@@ -1,0 +1,37 @@
+/chore ea4d1e03 Modify Product Comparison Detail page to show a 'Manual Comparison' button instead of 
+  inline ManualComparisonForm when all matched products are marked as incorrect.
+
+  CURRENT BEHAVIOR (in app/(main)/products/[id]/page.tsx):
+  - When shouldShowManualForm is true (all products marked incorrect), it renders an inline <ManualComparisonForm /> 
+  component directly on the detail page
+  - The logic uses areAllProductsIncorrect() function to determine this state
+
+  DESIRED BEHAVIOR:
+  - When all matched products are marked as 'incorrect', instead of showing the inline ManualComparisonForm, display a 
+  'Manual Comparison' button
+  - The button should navigate to /comparison page with query params to pre-fill the form:
+    - sku={data.product.sku}
+    - productId={productId}
+    - name={data.product.name} (URL encoded)
+    - Optional: price, imageUrl from Thai Watsadu data
+
+  CHANGES REQUIRED:
+  1. In the section where shouldShowManualForm is true (lines 439-451), replace the inline ManualComparisonForm with:
+     - Keep the yellow warning box that says 'All matched products have been marked as incorrect'
+     - Replace ManualComparisonForm with a styled 'Manual Comparison' button
+     - Button should use Next.js Link or router.push to navigate to /comparison page with query params
+
+  2. Button styling should:
+     - Be prominent and clearly visible (primary color like blue-600)
+     - Include an icon (e.g., external link or compare icon from lucide-react)
+     - Match existing button styles in the codebase (Tailwind CSS)
+
+  3. Optionally update /comparison page (app/(main)/comparison/page.tsx) to:
+     - Read query params on mount
+     - Pre-fill the Thai Watsadu SKU/URL input fields with the passed data
+
+  KEEP:
+  - All existing validation logic (areAllProductsIncorrect, validationStatuses, etc.)
+  - The ManualComparisonData display section (lines 454-470)
+  - Reset functionality
+  - Can remove or keep the ManualComparisonForm import depending on if it's used elsewhere

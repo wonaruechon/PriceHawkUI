@@ -1,0 +1,9 @@
+/chore dd2fa302 Fix the Status Badge visibility issue in the
+   Product Price Comparison page. The badges (Cheapest/Higher/Same) exist in the
+  DOM but have transparent backgrounds because Tailwind's JIT compiler cannot
+  detect the dynamically generated class names (bg-status-cheapest,
+  bg-status-higher, bg-status-same). Fix by either: 1) Adding a safelist to
+  tailwind.config.js for these classes, OR 2) Modifying StatusBadge.tsx to use
+  hardcoded Tailwind classes instead of dynamic ones from getStatusColor(). The
+  expected colors are: Cheapest=#10B981 (green), Higher=#F59E0B (yellow/orange),
+  Same=#6B7280 (gray), Unavailable=#D1D5DB (light gray).

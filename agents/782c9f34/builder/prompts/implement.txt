@@ -1,0 +1,1 @@
+/implement specs/chore-782c9f34-manual-comparison-ux-ui-enhancement.md

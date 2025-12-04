@@ -1,0 +1,8 @@
+/chore aadb3494 Fix Manual Comparison page: 1) Logo not displaying - In next.config.js, add 
+  '/expected/logo/**' to images.remotePatterns or copy logo files to public folder. Currently retailerLogo paths like 
+  '/expected/logo/thaiwatsau.png' don't work because Next.js only serves static files from /public. Either move 
+  expected/logo/*.png files to public/logos/ and update all logo paths in lib/constants/competitors.ts and 
+  app/api/comparison/manual/route.ts to use '/logos/*.png' format, OR configure next.config.js to serve from expected folder.
+   2) Reduce price font - In components/comparison/AppleStyleComparisonTable.tsx line 132 and 
+  components/comparison/PriceDifferenceDisplay.tsx line 22, change 'text-4xl' to 'text-2xl' to reduce the large price font 
+  size in the comparison table.

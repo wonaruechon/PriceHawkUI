@@ -1,0 +1,5 @@
+/chore 4ca412fc Fix responsive design issues in Manual Comparison page: 1) StageIndicator.tsx has
+  duplicate text on mobile - the mobile label at lines 69-77 always renders both hidden and visible states incorrectly, fix
+  the conditional rendering so only active stage shows label on mobile. 2) Sidebar.tsx needs responsive classes - add 'hidden
+   md:flex' to hide sidebar on mobile/tablet and ensure MainLayout handles the responsive layout properly. Reference the
+  /products page responsive behavior for consistency.

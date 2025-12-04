@@ -1,0 +1,24 @@
+/chore 18cd112b Adjust UI design for Manual Comparison page with the following changes:
+
+  1. LOGO UPDATES - Update retailer logos in both Input stage (CompetitorInputCard) and Results stage to use PNG logos from 
+  'expected/logo/' folder:
+     - HomePro: /expected/logo/homepro.png
+     - MegaHome: /expected/logo/megahome.png
+     - Boonthavorn: /expected/logo/boonthavorn.png
+     - Global House: /expected/logo/globalhouse.png
+     - DoHome: /expected/logo/dohome.png
+     - Thai Watsadu: /expected/logo/thaiwatsau.png
+     Update the logo paths in lib/constants/competitors.ts and ensure logos display correctly in retailer selection grid and 
+  results display.
+
+  2. RESULTS PAGE CLEANUP - In the comparison results view:
+     - Remove price difference display (e.g., '฿325 more expensive (+7.5%)' badge/text)
+     - Remove pricing details section: discount percentage, unit price fields
+     - Remove stock status/availability info but KEEP the product URL link
+     - Ensure consistent font sizing across all elements on the page
+
+  3. PAGE HEADER - Remove the subtitle text 'Compare products across retailers with Apple-style elegance' from the Manual 
+  Comparison page header in app/(main)/comparison/page.tsx
+
+  Files to modify: lib/constants/competitors.ts, components/comparison/CompetitorInputCard.tsx, 
+  app/(main)/comparison/page.tsx, and any result display components showing price comparisons.

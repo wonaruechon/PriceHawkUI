@@ -1,0 +1,1 @@
+/implement specs/chore-f5df3e67-refactor-product-comparison-detail.md

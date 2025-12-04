@@ -1,0 +1,17 @@
+{
+  "phase": "planning",
+  "adw_id": "385c5fcc",
+  "slash_command": "/chore",
+  "args": [
+    "385c5fcc",
+    "Enhance Products page UX/UI styling to match design reference while preserving existing\n   functionality: 1) PriceCell.tsx - change price text color from current styling to cyan-500 (teal), ensure external link\n  icon displays next to price, maintain clickable link behavior. 2) StatusBadge.tsx - update badge color scheme: 'cheapest'\n  status should use green background (bg-green-500 text-white), 'higher' status should use amber/orange background\n  (bg-amber-500 text-white), 'same' status should use gray background (bg-gray-200 text-gray-700), ensure pill/rounded-full\n  shape. 3) PriceComparisonTable.tsx - add 'No.' column as first column showing row number (1, 2, 3...), reorder columns to\n  match: No., Category, SKU, Product Name, Brand, Thai Watsadu, HomePro, Global House, Do Home, Boonthavorn, Status. Display\n  dash '-' for null/missing prices. 4) ProductSearchFilter.tsx - style Export button with cyan-500 background and white text\n  with download icon, style Reset button with border and gray text with refresh icon. Keep all existing filter logic, API\n  calls, and data flow unchanged."
+  ],
+  "path_to_slash_command_prompt": ".claude/commands/chore.md",
+  "model": "sonnet",
+  "working_dir": "/Users/naruechon/Documents/Project/PriceHack",
+  "success": true,
+  "session_id": "32f885d2-71b3-4af4-9ff2-74f4264d4720",
+  "retry_code": "none",
+  "output": "Perfect! I've created a detailed plan for enhancing the Products page UX/UI styling.\n\n**Plan created at:** `specs/chore-385c5fcc-products-page-ux-ui-styling.md`\n\n## Summary\n\nAfter researching the codebase and reviewing the design reference image, I found that:\n\n**Changes Required:**\n1. **PriceCell.tsx** - Change price color from `sky-500` to `cyan-500` (line 30)\n2. **price-utils.ts** - Update `getStatusColor()` function:\n   - 'higher' status: `bg-red-500` \u2192 `bg-amber-500` \n   - 'same' status: `bg-gray-500 text-white` \u2192 `bg-gray-200 text-gray-700`\n\n**Already Correct (No Changes Needed):**\n3. **PriceComparisonTable.tsx** - Table structure already matches design with No. column first\n4. **ProductSearchFilter.tsx** - Export and Reset buttons already styled correctly per design\n\nThe plan includes detailed step-by-step tasks and validation commands to ensure all changes are applied correctly while preserving existing functionality.",
+  "plan_path": "specs/chore-385c5fcc-products-page-ux-ui-styling.md"
+}

@@ -1,0 +1,19 @@
+/chore d960f86b Enhance Manual Comparison page UX/UI inspired by Apple iPhone Compare page 
+  (https://www.apple.com/th/iphone/compare/) while PRESERVING exact input requirements. KEEP EXISTING INPUT FLOW: 1) THAI 
+  WATSADU (Main Input) - SKU field (required), Product URL from Thai Watsadu (required). 2) COMPETITOR INPUTS - Retailer Name
+   dropdown (select ONLY from: HomePro, MegaHome, Boonthavorn, Global House, DoHome), Product URL for each retailer 
+  (required). Users can add MULTIPLE competitor entries but each must belong to approved retailer list only. ENHANCE WITH 
+  APPLE-STYLE DESIGN: INPUT SECTION - Clean card-based layout for ThaiWatsadu input card and competitor input cards, '+Add 
+  Competitor' button to add more retailer entries, each competitor card shows retailer dropdown + URL input with remove 
+  button, form validation with clear error states. COMPARISON RESULT VIEW (after submission): 1) STICKY HEADER - ThaiWatsadu 
+  product in first column, competitor products in subsequent columns, product images and retailer logos fixed at top while 
+  scrolling. 2) SIDE-BY-SIDE COLUMN LAYOUT - first column for attribute labels, remaining columns for ThaiWatsadu vs each 
+  competitor (HomePro, MegaHome, etc.). 3) GROUPED SPEC SECTIONS - Pricing section (price, discount %, unit price, price 
+  difference), Product Info section (name, SKU, brand, category), Availability section (stock status). 4) PRICE COMPARISON 
+  HIGHLIGHT - large bold typography for prices like Apple's screen size display (e.g., '฿1,299' in large text), color-coded 
+  difference (green=ThaiWatsadu cheaper, red=competitor cheaper, show ฿ amount and % difference). 5) VISUAL INDICATORS - 
+  checkmarks for matching attributes, warning icons for significant price differences, dashes for unavailable data. 6) 
+  RETAILER BRANDING - show retailer logo/name in each column header. 7) CTA per column - 'View Product' link to original URL 
+  for each retailer. 8) CLEAN WHITESPACE with subtle dividers between spec groups. 9) RESPONSIVE TABLE with proper semantic 
+  HTML. Keep multi-step flow: Step 1 (Input ThaiWatsadu + Competitors) -> Step 2 (Review/Confirm) -> Step 3 (Comparison 
+  Results in Apple-style table).
